@@ -1,0 +1,1 @@
+{"description":"Have You Tried Turning It Off? — one funny line from a hopeless tech support agent to a desperate customer","license":"MIT","main":"main.ts","name":"have-you-tried-turning-it-off","private":true,"scripts":{"start":"node main.ts"},"type":"module","version":"1.0.0"}
