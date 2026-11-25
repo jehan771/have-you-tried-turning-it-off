@@ -46,9 +46,16 @@ checkGate(LINE);
 mkdirSync("/output", { recursive: true });
 writeFileSync(DEST, LINE, "utf8");
 
-// Read-back: what the judge will see must be byte-identical to the line.
+// Read-back: what the judge will see must be byte-identical to the line,
+// and the file must be exactly the line's bytes — no trailing newline,
+// no BOM, no encoding surprise.
 const back = readFileSync(DEST, "utf8");
 if (back !== LINE) {
   throw new Error("read-back differs from the line");
+}
+const byteLen = Buffer.byteLength(LINE, "utf8");
+const fileBytes = readFileSync(DEST).length;
+if (fileBytes !== byteLen) {
+  throw new Error(`output is ${fileBytes} bytes, line is ${byteLen} bytes`);
 }
 console.log(`wrote ${DEST}: ${LINE.length} characters`);
